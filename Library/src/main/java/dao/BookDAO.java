@@ -56,4 +56,30 @@ public class BookDAO {
 			return books;
 		}
 	}
+	
+	public static List<Book> getBooksByAuthor(String author) throws SQLException {
+		try(Connection connection = MyDbConnection.getConnection()){
+			String query = "Select bookID, title, author, pages FROM books WHERE author = ?";
+			ResultSet booksResult;
+			List<Book> books = new ArrayList<>();
+			try {
+				PreparedStatement ps = connection.prepareStatement(query);
+				ps.setString(1, author);
+				booksResult = ps.executeQuery();
+			}catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+			
+			while(booksResult.next()) {
+				int id = booksResult.getInt("bookID");
+				String title = booksResult.getString("title");
+				String authorName = booksResult.getString("author");
+				int page = booksResult.getInt("pages");
+				books.add(new Book(id, title, authorName, page));
+			}
+			return books;
+			
+		}
+	}
 }

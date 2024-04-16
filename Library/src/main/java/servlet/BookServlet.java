@@ -42,6 +42,17 @@ public class BookServlet extends HttpServlet{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}   
+	    } else if(pathInfo.equals("/booksByAuthor")) {
+	    	try {
+	    		String author = request.getParameter("author");
+	    		books = BookDAO.getBooksByAuthor(author);
+	    		request.setAttribute("books", books);
+	    		String url = "/read.jsp";
+	    		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+	    		dispatcher.forward(request, response);
+	    	}catch (SQLException e) {
+	    		e.printStackTrace();
+	    	}
 	    }
 	}
 

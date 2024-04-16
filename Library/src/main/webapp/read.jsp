@@ -19,7 +19,7 @@
             for (Book book : books) {
                 out.println("<tr>");
                 out.println("<td>" + book.getTitle() + "</td>");
-                out.println("<td>" + book.getAuthor() + "</td>");
+                out.println("<td><a href=\"booksByAuthor?author=" + book.getAuthor() + "\">" + book.getAuthor() + "</a></td>");
                 out.println("<td>" + book.getPages() + "</td>");
                 out.println("</tr>");
             }
